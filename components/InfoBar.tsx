@@ -1,3 +1,5 @@
+import RippleButton from './RippleButton';
+
 function MailIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
@@ -31,9 +33,9 @@ export default function InfoBar() {
     <div style={{ backgroundColor: '#F4EFE8', borderTop: '1px solid #E5DED5', borderBottom: '1px solid #E5DED5' }}>
       <div
         style={{
-          maxWidth: 1440,
+          maxWidth: 1900,
           margin: '0 auto',
-          padding: '32px 24px',
+          padding: '32px 2em',
           display: 'flex',
           alignItems: 'stretch',
           gap: 0,
@@ -73,22 +75,21 @@ export default function InfoBar() {
                   fontFamily: 'inherit',
                 }}
               />
-              <button
+              <RippleButton
+                as="button"
+                bg="#2A2320"
+                color="#fff"
                 style={{
                   height: 36,
                   padding: '0 18px',
-                  backgroundColor: '#2A2320',
-                  color: '#fff',
-                  border: 'none',
                   borderRadius: '0 99px 99px 0',
                   fontSize: 12,
-                  cursor: 'pointer',
                   fontFamily: 'inherit',
                   letterSpacing: '0.04em',
                 }}
               >
                 Suscribirse
-              </button>
+              </RippleButton>
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 'use client';
+import RippleButton from './RippleButton';
 
 function ArchDecoration() {
   return (
@@ -51,7 +52,7 @@ export default function Collections() {
     <section style={{ backgroundColor: '#F4EFE8' }}>
       <div
         style={{
-          maxWidth: 1440,
+          maxWidth: 1900,
           margin: '0 auto',
           display: 'flex',
           minHeight: 520,
@@ -107,34 +108,20 @@ export default function Collections() {
             Diseñamos y fabricamos en España. Materiales naturales, acabados cuidados y tallas desde recién nacido hasta 5 años.
           </p>
 
-          <a
-            href="#"
+          <RippleButton
+            bg="transparent"
+            color="#2A2320"
+            hoverColor="#F4EFE8"
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
               padding: '11px 28px',
               borderRadius: 99,
               border: '1.5px solid #2A2320',
-              color: '#2A2320',
               fontSize: 13,
               letterSpacing: '0.06em',
-              textDecoration: 'none',
-              width: 'fit-content',
-              transition: 'background 0.2s, color 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement;
-              el.style.background = '#2A2320';
-              el.style.color = '#fff';
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement;
-              el.style.background = 'transparent';
-              el.style.color = '#2A2320';
             }}
           >
             Explorar colecciones
-          </a>
+          </RippleButton>
 
           {/* Decorations */}
           <div style={{ position: 'absolute', bottom: 48, left: 48 }}>

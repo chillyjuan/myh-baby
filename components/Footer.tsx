@@ -56,9 +56,9 @@ export default function Footer() {
     <footer style={{ backgroundColor: '#EBEBEA' }}>
       <div
         style={{
-          maxWidth: 1440,
+          maxWidth: 1900,
           margin: '0 auto',
-          padding: '52px 24px 40px',
+          padding: '52px 2em 40px',
           display: 'flex',
           gap: 48,
         }}
@@ -67,29 +67,11 @@ export default function Footer() {
         <div style={{ flex: '0 0 240px' }}>
           {/* Logo */}
           <div style={{ marginBottom: 16 }}>
-            <span
-              className="font-display"
-              style={{
-                fontSize: 22,
-                fontStyle: 'italic',
-                fontWeight: 400,
-                color: '#2A2320',
-                letterSpacing: '0.14em',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 2,
-              }}
-            >
-              <svg width="12" height="12" viewBox="0 0 12 12" style={{ marginRight: 2 }}>
-                <circle cx="3" cy="3" r="1" fill="#2A2320" />
-                <circle cx="9" cy="3" r="1" fill="#2A2320" />
-              </svg>
-              m<span style={{ color: '#C5897E', fontStyle: 'normal' }}>&amp;</span>h
-              <svg width="12" height="12" viewBox="0 0 12 12" style={{ marginLeft: 2 }}>
-                <circle cx="3" cy="9" r="1" fill="#2A2320" />
-                <circle cx="9" cy="9" r="1" fill="#2A2320" />
-              </svg>
-            </span>
+            <img
+              src="/images/logo.png"
+              alt="m&h Baby"
+              style={{ height: 34, width: 'auto', display: 'block' }}
+            />
           </div>
           <p
             style={{
@@ -116,8 +98,8 @@ export default function Footer() {
       <div
         style={{
           borderTop: '1px solid #D8D2C8',
-          padding: '16px 24px',
-          maxWidth: 1440,
+          padding: '16px 2em',
+          maxWidth: 1900,
           margin: '0 auto',
         }}
       >

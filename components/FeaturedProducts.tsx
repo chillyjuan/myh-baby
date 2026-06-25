@@ -1,188 +1,202 @@
 'use client';
 import { useState } from 'react';
 
-type Badge = 'REBAJAS' | 'NUEVO' | 'OFERTA' | null;
+type Badge = 'REBAJAS' | 'NUEVO' | 'OFERTA';
 
-const badgeColors: Record<string, string> = {
-  REBAJAS: '#C84B40',
-  NUEVO: '#4A5C4A',
-  OFERTA: '#C4782A',
-};
+/*
+ * WooCommerce badge logic (implemented in PHP theme):
+ *
+ *  REBAJAS — el producto tiene precio rebajado Y meta _promotion_type = 'rebajas'
+ *             (precio rebajado lo activa WooCommerce de forma nativa con sale_price)
+ *
+ *  OFERTA  — el producto tiene precio rebajado Y meta _promotion_type = 'oferta'
+ *             (se elige en el editor del producto: campo radio "Tipo de etiqueta")
+ *
+ *  NUEVO   — $product->get_date_created() > now - 30 days  (automático, sin meta)
+ *
+ * En el editor de WooCommerce se añade un meta box "Etiqueta de producto" con:
+ *   ○ Rebajas  ● Oferta casual  (radio, solo visible si hay sale_price)
+ */
 
 interface Product {
+  id: number;
   name: string;
-  price: string;
-  originalPrice?: string;
-  badge: Badge;
-  bg: string;
+  price: number;
+  originalPrice?: number;
+  // 'REBAJAS'|'OFERTA' → tiene precio rebajado; 'NUEVO' → añadido hace <30 días
+  badge?: Badge;
+  image?: string;
+  placeholderBg: string;
 }
 
 const products: Product[] = [
   {
+    id: 1,
     name: 'Camisa Cuello Mao Manga Larga Rayas Azules',
-    price: '21,95€',
-    badge: null,
-    bg: 'linear-gradient(145deg, #dce8f4 0%, #c0d4e8 100%)',
+    price: 21.95,
+    placeholderBg: 'linear-gradient(145deg, #dce8f4 0%, #b8cfe8 100%)',
   },
   {
+    id: 2,
     name: 'Camiseta Manga Corta Rematada En Rosa',
-    price: '15,95€',
-    originalPrice: '18,95€',
+    price: 15.95,
+    originalPrice: 18.95,
     badge: 'REBAJAS',
-    bg: 'linear-gradient(145deg, #f4e0e0 0%, #e8c8c8 100%)',
+    placeholderBg: 'linear-gradient(145deg, #f4e0e2 0%, #e8c8cc 100%)',
   },
   {
+    id: 3,
     name: 'Vestido Lacitos Estampado Liceo',
-    price: '36,95€',
+    price: 36.95,
     badge: 'NUEVO',
-    bg: 'linear-gradient(145deg, #e8e0f0 0%, #d4c8e4 100%)',
+    placeholderBg: 'linear-gradient(145deg, #ece0f0 0%, #d8c8e8 100%)',
   },
   {
+    id: 4,
     name: 'Camisa Doble Botonadura Manga Corta Blanco',
-    price: '15,95€',
-    originalPrice: '18,95€',
+    price: 15.95,
+    originalPrice: 18.95,
     badge: 'OFERTA',
-    bg: 'linear-gradient(145deg, #f0f0ec 0%, #dcdcd4 100%)',
+    placeholderBg: 'linear-gradient(145deg, #f2f0ec 0%, #e0dcd4 100%)',
   },
   {
+    id: 5,
     name: 'Pijama Corto M&H Bordado Blanco',
-    price: '17,95€',
-    badge: null,
-    bg: 'linear-gradient(145deg, #f4f0e8 0%, #e4ddd0 100%)',
+    price: 17.95,
+    placeholderBg: 'linear-gradient(145deg, #f4f0e8 0%, #e4ddd0 100%)',
   },
 ];
+
+const BADGE: Record<Badge, { bg: string; color: string }> = {
+  REBAJAS: { bg: '#DA9B92', color: '#40361F' },
+  NUEVO:   { bg: '#B1C1B4', color: '#40361F' },
+  OFERTA:  { bg: '#FFD589', color: '#40361F' },
+};
+
+function ProductCard({ product }: { product: Product }) {
+  const [hovered, setHovered] = useState(false);
+  const badge = product.badge ? BADGE[product.badge] : null;
+
+  return (
+    <a
+      href="#"
+      style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Wrapper: relative + overflow visible so dog can poke above */}
+      <div style={{ position: 'relative', aspectRatio: '3/4', marginBottom: 12 }}>
+        {/* Image clip — separate div so overflow:hidden doesn't cut the dog */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          overflow: 'hidden', background: product.placeholderBg,
+        }}>
+          {product.image && (
+            <img
+              src={product.image}
+              alt={product.name}
+              style={{
+                width: '100%', height: '100%', objectFit: 'cover',
+                transform: hovered ? 'scale(1.04)' : 'scale(1)',
+                transition: 'transform 0.45s ease',
+              }}
+            />
+          )}
+        </div>
+
+        {/* Badge — outside the clipped div so dog overflows upward freely */}
+        {badge && product.badge && (
+          <div style={{
+            position: 'absolute', top: 6, right: 6,
+            display: 'flex', alignItems: 'center',
+            pointerEvents: 'none',
+          }}>
+            <div style={{
+              backgroundColor: badge.bg, color: badge.color,
+              padding: '7px 10px 7px 12px',
+              fontSize: 11, letterSpacing: '0.12em', lineHeight: 1,
+              fontFamily: 'var(--font-display)', fontWeight: 400,
+              borderRadius: '4px 0 0 4px',
+              whiteSpace: 'nowrap',
+            }}>
+              {product.badge}
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/etiqueta-perro.png"
+              alt=""
+              style={{ height: 46, width: 'auto', flexShrink: 0, marginLeft: -14 }}
+            />
+          </div>
+        )}
+      </div>
+
+      <p style={{ fontSize: 13, color: '#2A2320', lineHeight: 1.45, marginBottom: 7, textAlign: 'center' }}>
+        {product.name}
+      </p>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, justifyContent: 'center' }}>
+        {product.originalPrice && (
+          <span style={{ fontSize: 12, color: '#B5AFA8', textDecoration: 'line-through' }}>
+            {product.originalPrice.toFixed(2).replace('.', ',')}€
+          </span>
+        )}
+        <span style={{
+          fontSize: 14, fontWeight: 500,
+          color: product.originalPrice ? '#913232' : '#2A2320',
+        }}>
+          {product.price.toFixed(2).replace('.', ',')}€
+        </span>
+      </div>
+    </a>
+  );
+}
 
 export default function FeaturedProducts() {
   const [activeTab, setActiveTab] = useState<'productos' | 'looks'>('productos');
 
   return (
-    <section style={{ padding: '52px 0', backgroundColor: '#F4EFE8' }}>
-      <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 24px' }}>
-        {/* Tab header */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'baseline',
-            justifyContent: 'space-between',
-            marginBottom: 28,
-          }}
-        >
-          <div style={{ display: 'flex', gap: 28 }}>
-            {(['productos', 'looks'] as const).map((tab) => (
+    <section style={{ backgroundColor: '#F4EFE8', padding: '56px 0 64px' }}>
+      <div style={{ maxWidth: 1900, margin: '0 auto', padding: '0 40px' }}>
+
+        {/* Header */}
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 36 }}>
+          <div style={{ display: 'flex', gap: 28, alignItems: 'flex-end' }}>
+            {(['productos', 'looks'] as const).map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 style={{
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: 16,
-                  fontWeight: activeTab === tab ? 500 : 400,
+                  background: 'none', border: 'none', padding: '0 0 10px', cursor: 'pointer',
+                  fontSize: 24, fontWeight: activeTab === tab ? 600 : 400,
                   color: activeTab === tab ? '#2A2320' : '#B5AFA8',
-                  paddingBottom: 6,
-                  borderBottom: activeTab === tab ? '1.5px solid #2A2320' : '1.5px solid transparent',
-                  letterSpacing: '0.01em',
-                  transition: 'color 0.15s',
-                  fontFamily: 'inherit',
+                  textDecoration: activeTab === tab ? 'underline' : 'none',
+                  textDecorationThickness: '1px',
+                  textUnderlineOffset: '4px',
+                  fontFamily: 'var(--font-body)', transition: 'color 0.2s',
                 }}
               >
                 {tab === 'productos' ? 'Productos destacados' : 'Looks destacados'}
               </button>
             ))}
           </div>
-          <a
-            href="#"
-            style={{
-              fontSize: 12,
-              color: '#2A2320',
-              textDecoration: 'underline',
-              textUnderlineOffset: 3,
-              letterSpacing: '0.04em',
-            }}
-          >
+          <a href="#" style={{ fontSize: 13, color: '#2A2320', textDecoration: 'underline', textUnderlineOffset: 3 }}>
             Ver todos
           </a>
         </div>
 
-        {/* Product grid */}
-        <div
-          style={{
-            display: 'flex',
-            gap: 18,
-            overflowX: 'auto',
-          }}
-          className="scroll-hide"
-        >
-          {products.map((p) => (
-            <a
-              key={p.name}
-              href="#"
-              style={{ textDecoration: 'none', flexShrink: 0, width: 220 }}
-            >
-              {/* Product image */}
-              <div style={{ position: 'relative', marginBottom: 10 }}>
-                <div
-                  style={{
-                    width: 220,
-                    height: 285,
-                    borderRadius: 4,
-                    background: p.bg,
-                    transition: 'transform 0.2s',
-                  }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-3px)'; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'; }}
-                />
-                {p.badge && (
-                  <span
-                    style={{
-                      position: 'absolute',
-                      top: 10,
-                      right: 10,
-                      backgroundColor: badgeColors[p.badge],
-                      color: '#fff',
-                      fontSize: 9,
-                      fontWeight: 600,
-                      letterSpacing: '0.1em',
-                      padding: '3px 8px',
-                      borderRadius: 99,
-                    }}
-                  >
-                    {p.badge}
-                  </span>
-                )}
-              </div>
+        {/* Grid */}
+        {activeTab === 'productos' && (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 20 }}>
+            {products.map(product => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
 
-              {/* Product info */}
-              <p
-                style={{
-                  fontSize: 12,
-                  color: '#2A2320',
-                  lineHeight: 1.4,
-                  marginBottom: 5,
-                  letterSpacing: '0.01em',
-                }}
-              >
-                {p.name}
-              </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                {p.originalPrice && (
-                  <span style={{ fontSize: 12, color: '#B5AFA8', textDecoration: 'line-through' }}>
-                    {p.originalPrice}
-                  </span>
-                )}
-                <span
-                  style={{
-                    fontSize: 13,
-                    fontWeight: 500,
-                    color: p.originalPrice ? '#C84B40' : '#2A2320',
-                  }}
-                >
-                  {p.price}
-                </span>
-              </div>
-            </a>
-          ))}
-        </div>
+        {activeTab === 'looks' && (
+          <p style={{ color: '#B5AFA8', fontSize: 14 }}>Próximamente — looks destacados.</p>
+        )}
+
       </div>
     </section>
   );
