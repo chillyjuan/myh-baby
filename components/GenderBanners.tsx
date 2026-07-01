@@ -18,11 +18,11 @@ function GenderCard({
       style={{
         flex: 1,
         position: 'relative',
-        height: 480,
+        height: 720,
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-start',
         padding: '36px 40px',
         background: `repeating-linear-gradient(90deg, ${bgBase} 0px, ${bgBase} 54px, ${bgStripe} 54px, ${bgStripe} 108px)`,
       }}
@@ -33,7 +33,7 @@ function GenderCard({
           position: 'absolute',
           top: '50%',
           left: '50%',
-          transform: 'translate(-50%, -56%)',
+          transform: 'translate(-50%, -50%)',
           width: '72%',
           zIndex: 2,
         }}
@@ -53,14 +53,13 @@ function GenderCard({
             fontSize: 48,
             fontWeight: 300,
             fontStyle: 'normal',
-            color: '#fff',
+            color: '#40361F',
             lineHeight: 1,
-            textShadow: '0 1px 4px rgba(0,0,0,0.08)',
           }}
         >
           {title}
         </h2>
-        <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.85)', marginTop: 4 }}>
+        <p style={{ fontSize: 19, color: '#40361F', marginTop: 4, fontFamily: 'var(--font-body)', fontWeight: 400 }}>
           {subtitle}
         </p>
       </div>
@@ -70,7 +69,8 @@ function GenderCard({
 
 export default function GenderBanners() {
   return (
-    <section style={{ display: 'flex' }}>
+    <section style={{ padding: '40px' }}>
+    <div style={{ display: 'flex', gap: 40, maxWidth: 1900, margin: '0 auto' }}>
       <GenderCard
         title="Niñas"
         subtitle="12m - 5 años"
@@ -87,6 +87,7 @@ export default function GenderBanners() {
         imgSrc="/images/ninos-banner.png"
         imgAlt="Niño con peto terracota m&h"
       />
+    </div>
     </section>
   );
 }

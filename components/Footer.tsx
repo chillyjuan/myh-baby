@@ -18,29 +18,31 @@ function FooterCol({ title, links }: { title: string; links: string[] }) {
     <div>
       <p
         style={{
-          fontSize: 10,
-          letterSpacing: '0.18em',
+          fontSize: 14,
+          letterSpacing: '0.2em',
           fontWeight: 500,
-          color: '#2A2320',
-          marginBottom: 16,
+          color: '#40361F',
+          marginBottom: 20,
           textTransform: 'uppercase',
+          fontFamily: 'var(--font-body)',
         }}
       >
         {title}
       </p>
       <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
         {links.map((link) => (
-          <li key={link} style={{ marginBottom: 8 }}>
+          <li key={link} style={{ lineHeight: '27px' }}>
             <a
               href="#"
               style={{
-                fontSize: 12,
-                color: '#78726C',
+                fontSize: 16,
+                color: 'rgba(64, 54, 31, 0.4)',
                 textDecoration: 'none',
                 transition: 'color 0.15s',
+                fontFamily: 'var(--font-body)',
               }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#2A2320'; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#78726C'; }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#40361F'; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(64, 54, 31, 0.4)'; }}
             >
               {link}
             </a>
@@ -53,14 +55,14 @@ function FooterCol({ title, links }: { title: string; links: string[] }) {
 
 export default function Footer() {
   return (
-    <footer style={{ backgroundColor: '#EBEBEA' }}>
+    <footer style={{ backgroundColor: '#FFFFFF' }}>
       <div
         style={{
           maxWidth: 1900,
           margin: '0 auto',
-          padding: '52px 2em 40px',
+          padding: '60px 40px 48px',
           display: 'flex',
-          gap: 48,
+          gap: 64,
         }}
       >
         {/* Brand column */}
@@ -75,10 +77,11 @@ export default function Footer() {
           </div>
           <p
             style={{
-              fontSize: 12,
-              color: '#78726C',
-              lineHeight: 1.65,
-              maxWidth: 210,
+              fontSize: 16,
+              color: 'rgba(64, 54, 31, 0.4)',
+              lineHeight: '17px',
+              maxWidth: 280,
+              fontFamily: 'var(--font-body)',
             }}
           >
             m&h es una marca de moda infantil española. Nuestras colecciones abarcan principalmente bebé y niño hasta los 5 años, en un estilo clásico, sencillo y con precios asequibles.
@@ -86,7 +89,7 @@ export default function Footer() {
         </div>
 
         {/* Nav columns */}
-        <div style={{ flex: 1, display: 'flex', gap: 40, flexWrap: 'wrap' }}>
+        <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 40 }}>
           <FooterCol title="Tienda Online" links={tiendaLinks} />
           <FooterCol title="Guía de Compra" links={guiaLinks} />
           <FooterCol title="M&H" links={myhLinks} />
@@ -94,19 +97,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div
-        style={{
-          borderTop: '1px solid #D8D2C8',
-          padding: '16px 2em',
-          maxWidth: 1900,
-          margin: '0 auto',
-        }}
-      >
-        <p style={{ fontSize: 11, color: '#B5AFA8', textAlign: 'center' }}>
-          © 2025 m&h Baby. Todos los derechos reservados.
-        </p>
-      </div>
     </footer>
   );
 }

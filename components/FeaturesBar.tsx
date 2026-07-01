@@ -46,7 +46,7 @@ export default function FeaturesBar() {
         style={{
           maxWidth: 1000,
           margin: '0 auto',
-          padding: '0 2em',
+          padding: '0 40px',
           display: 'flex',
           alignItems: 'center',
           height: 48,

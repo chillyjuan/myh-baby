@@ -1,83 +1,42 @@
 'use client';
 import RippleButton from './RippleButton';
 
-function ArchDecoration() {
-  return (
-    <div
-      style={{
-        width: 80,
-        height: 40,
-        borderRadius: '40px 40px 0 0',
-        border: '4px solid #A2B5A9',
-        borderBottom: 'none',
-        marginBottom: 28,
-      }}
-    />
-  );
-}
-
-function FlowerSvg() {
-  return (
-    <svg width="72" height="72" viewBox="0 0 72 72" style={{ color: '#C5897E' }}>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <ellipse
-          key={i}
-          cx="36"
-          cy="16"
-          rx="9"
-          ry="16"
-          fill="currentColor"
-          opacity="0.75"
-          transform={`rotate(${i * 72} 36 36)`}
-        />
-      ))}
-      <circle cx="36" cy="36" r="10" fill="currentColor" />
-    </svg>
-  );
-}
-
-function StarSvg() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 28 28" style={{ color: '#E8C840' }}>
-      <path
-        d="M14 0 L16.5 11.5 L28 14 L16.5 16.5 L14 28 L11.5 16.5 L0 14 L11.5 11.5 Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
 
 export default function Collections() {
   return (
-    <section style={{ backgroundColor: '#F4EFE8' }}>
+    <section style={{ padding: '40px' }}>
       <div
         style={{
           maxWidth: 1900,
           margin: '0 auto',
           display: 'flex',
           minHeight: 520,
+          backgroundColor: '#F4EFE8',
+          padding: 40,
+          gap: 40,
         }}
       >
         {/* Left: text panel */}
         <div
           style={{
             flex: '0 0 42%',
-            padding: '64px 40px',
+            padding: '24px 0',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
             position: 'relative',
           }}
         >
-          <ArchDecoration />
 
           <p
             style={{
-              fontSize: 10,
+              fontSize: 15,
               letterSpacing: '0.2em',
-              color: '#78726C',
+              color: '#40361F',
               textTransform: 'uppercase',
               marginBottom: 16,
+              fontFamily: 'var(--font-body)',
+              fontWeight: 500,
             }}
           >
             Colecciones
@@ -86,10 +45,10 @@ export default function Collections() {
           <h2
             className="font-display"
             style={{
-              fontSize: 'clamp(28px, 3vw, 40px)',
+              fontSize: 'clamp(32px, 3.2vw, 44px)',
               fontWeight: 300,
-              color: '#2A2320',
-              lineHeight: 1.18,
+              color: '#40361F',
+              lineHeight: 1.1,
               marginBottom: 18,
             }}
           >
@@ -98,11 +57,13 @@ export default function Collections() {
 
           <p
             style={{
-              fontSize: 13,
-              color: '#78726C',
-              lineHeight: 1.65,
-              maxWidth: 310,
+              fontSize: 16,
+              color: '#40361F',
+              lineHeight: 1.6,
+              maxWidth: 340,
               marginBottom: 28,
+              fontFamily: 'var(--font-body)',
+              fontWeight: 400,
             }}
           >
             Diseñamos y fabricamos en España. Materiales naturales, acabados cuidados y tallas desde recién nacido hasta 5 años.
@@ -118,22 +79,23 @@ export default function Collections() {
               border: '1.5px solid #2A2320',
               fontSize: 13,
               letterSpacing: '0.06em',
+              alignSelf: 'flex-start',
             }}
           >
             Explorar colecciones
           </RippleButton>
 
           {/* Decorations */}
-          <div style={{ position: 'absolute', bottom: 48, left: 48 }}>
-            <FlowerSvg />
-          </div>
-          <div style={{ position: 'absolute', bottom: 80, right: 60 }}>
-            <StarSvg />
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/colecciones-arco.svg" alt="" style={{ position: 'absolute', top: 40, left: '50%', transform: 'translateX(-50%)', width: 160 }} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/colecciones-flor.svg" alt="" style={{ position: 'absolute', bottom: 160, right: -120, width: 280, zIndex: 2 }} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/colecciones-estrella.svg" alt="" style={{ position: 'absolute', bottom: 48, left: '38%', width: 80 }} />
         </div>
 
         {/* Right: two real photos side by side */}
-        <div style={{ flex: 1, display: 'flex' }}>
+        <div style={{ flex: 1, display: 'flex', gap: 40 }}>
           <div style={{ flex: 1, overflow: 'hidden' }}>
             <img
               src="/images/coleccion-nino.png"

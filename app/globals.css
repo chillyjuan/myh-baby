@@ -127,7 +127,7 @@
 body {
   font-family: var(--font-body);
   color: #2A2320;
-  background-color: #FAFAF8;
+  background-color: #FFFFFF;
 }
 
 .scroll-hide::-webkit-scrollbar {

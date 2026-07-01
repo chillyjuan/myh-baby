@@ -1,41 +1,20 @@
 import RippleButton from './RippleButton';
 
-function MailIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-      <rect x="2" y="4" width="20" height="16" rx="2" />
-      <path d="M2 7l10 7 10-7" />
-    </svg>
-  );
-}
-
-function TruckIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-      <path d="M1 3h15v13H1z" /><path d="M16 8h4l3 3v5h-7V8z" />
-      <circle cx="5.5" cy="18.5" r="2.5" /><circle cx="18.5" cy="18.5" r="2.5" />
-    </svg>
-  );
-}
-
-function BagIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-      <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-      <line x1="3" y1="6" x2="21" y2="6" />
-      <path d="M16 10a4 4 0 0 1-8 0" />
-    </svg>
-  );
-}
+// eslint-disable-next-line @next/next/no-img-element
+const MailIcon = () => <img src="/images/icon-mail.svg" alt="" width={30} height={24} />;
+// eslint-disable-next-line @next/next/no-img-element
+const TruckIcon = () => <img src="/images/icon-camion.svg" alt="" width={30} height={24} />;
+// eslint-disable-next-line @next/next/no-img-element
+const BagIcon = () => <img src="/images/icon-bolsa.svg" alt="" width={22} height={26} />;
 
 export default function InfoBar() {
   return (
-    <div style={{ backgroundColor: '#F4EFE8', borderTop: '1px solid #E5DED5', borderBottom: '1px solid #E5DED5' }}>
+    <div style={{ backgroundColor: '#F4EFE8',  }}>
       <div
         style={{
           maxWidth: 1900,
           margin: '0 auto',
-          padding: '32px 2em',
+          padding: '32px 40px',
           display: 'flex',
           alignItems: 'stretch',
           gap: 0,
@@ -44,83 +23,84 @@ export default function InfoBar() {
         {/* Newsletter */}
         <div
           style={{
-            flex: 1,
+            flex: '0 0 auto',
             display: 'flex',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             gap: 16,
-            paddingRight: 40,
+            paddingRight: 60,
           }}
         >
-          <span style={{ color: '#78726C', flexShrink: 0 }}>
+          <span style={{ flexShrink: 0, paddingTop: 4 }}>
             <MailIcon />
           </span>
-          <div>
-            <p style={{ fontSize: 14, fontWeight: 500, color: '#2A2320', marginBottom: 2 }}>Newsletter</p>
-            <p style={{ fontSize: 11, color: '#78726C', marginBottom: 12 }}>Novedades en tu email</p>
-            <div style={{ display: 'flex', gap: 0 }}>
-              <input
-                type="email"
-                placeholder="Tu email"
-                style={{
-                  height: 36,
-                  padding: '0 14px',
-                  border: '1px solid #D8D2C8',
-                  borderRight: 'none',
-                  borderRadius: '99px 0 0 99px',
-                  fontSize: 12,
-                  color: '#2A2320',
-                  background: '#fff',
-                  outline: 'none',
-                  width: 160,
-                  fontFamily: 'inherit',
-                }}
-              />
-              <RippleButton
-                as="button"
-                bg="#2A2320"
-                color="#fff"
-                style={{
-                  height: 36,
-                  padding: '0 18px',
-                  borderRadius: '0 99px 99px 0',
-                  fontSize: 12,
-                  fontFamily: 'inherit',
-                  letterSpacing: '0.04em',
-                }}
-              >
-                Suscribirse
-              </RippleButton>
-            </div>
+          <div style={{ flexShrink: 0 }}>
+            <p className="font-display" style={{ fontSize: 22, fontWeight: 300, color: '#40361F', marginBottom: 2 }}>Newsletter</p>
+            <p style={{ fontSize: 14, color: '#40361F', fontFamily: 'var(--font-body)' }}>Novedades en tu email</p>
+          </div>
+          <div style={{ display: 'flex', gap: 0, marginLeft: 32 }}>
+            <input
+              type="email"
+              placeholder="Tu email"
+              style={{
+                height: 50,
+                padding: '0 20px',
+                border: '1px solid rgba(64, 54, 31, 0.7)',
+                borderRight: 'none',
+                borderRadius: '99px 0 0 99px',
+                fontSize: 15,
+                color: 'rgba(64, 54, 31, 0.4)',
+                background: 'transparent',
+                outline: 'none',
+                width: 260,
+                fontFamily: 'var(--font-body)',
+              }}
+            />
+            <RippleButton
+              as="button"
+              bg="#2A2320"
+              color="#F2EEEA"
+              style={{
+                height: 50,
+                padding: '0 24px',
+                borderRadius: '0 99px 99px 0',
+                fontSize: 15,
+                fontFamily: 'var(--font-body)',
+                fontWeight: 500,
+                letterSpacing: '0.02em',
+              }}
+            >
+              Suscribirse
+            </RippleButton>
           </div>
         </div>
 
         {/* Divider */}
-        <div style={{ width: 1, backgroundColor: '#D8D2C8', margin: '0 40px', alignSelf: 'stretch' }} />
+        <div style={{ width: 1, backgroundColor: '#B9A78D', margin: '0 32px', alignSelf: 'center', height: 70 }} />
 
         {/* Shipping */}
-        <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 16, padding: '0 40px' }}>
-          <span style={{ color: '#78726C', flexShrink: 0 }}>
+        <div style={{ flex: 1, display: 'flex', alignItems: 'flex-start', gap: 16 }}>
+          <span style={{ flexShrink: 0, paddingTop: 4 }}>
             <TruckIcon />
           </span>
           <div>
-            <p style={{ fontSize: 14, fontWeight: 500, color: '#2A2320', marginBottom: 2 }}>Tarifas de envío</p>
-            <p style={{ fontSize: 11, color: '#78726C', lineHeight: 1.5 }}>
+            <p className="font-display" style={{ fontSize: 22, fontWeight: 300, color: '#40361F', marginBottom: 4 }}>Tarifas de envío</p>
+            <p style={{ fontSize: 14, color: '#40361F', lineHeight: 1.5, fontFamily: 'var(--font-body)' }}>
               Consulta las tarifas de envío y los puntos<br />de recogida gratuita.
             </p>
           </div>
         </div>
 
         {/* Divider */}
-        <div style={{ width: 1, backgroundColor: '#D8D2C8', margin: '0 40px', alignSelf: 'stretch' }} />
+        <div style={{ width: 1, backgroundColor: '#B9A78D', margin: '0 32px', alignSelf: 'center', height: 70 }} />
 
         {/* Purchase conditions */}
-        <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 16, paddingLeft: 40 }}>
-          <span style={{ color: '#78726C', flexShrink: 0 }}>
+        <div style={{ flex: 1, display: 'flex', alignItems: 'flex-start', gap: 16 }}>
+          <span style={{ flexShrink: 0, paddingTop: 4 }}>
             <BagIcon />
           </span>
           <div>
-            <p style={{ fontSize: 14, fontWeight: 500, color: '#2A2320', marginBottom: 2 }}>Condiciones de compra</p>
-            <p style={{ fontSize: 11, color: '#78726C', lineHeight: 1.5 }}>
+            <p className="font-display" style={{ fontSize: 22, fontWeight: 300, color: '#40361F', marginBottom: 4 }}>Condiciones de compra</p>
+            <p style={{ fontSize: 14, color: '#40361F', lineHeight: 1.5, fontFamily: 'var(--font-body)' }}>
               Envíos gratis por compras superiores a 120€<br />(España) 150€ (Europa).
             </p>
           </div>

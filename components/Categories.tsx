@@ -73,7 +73,7 @@ export default function Categories() {
   return (
     <section style={{ padding: '52px 0 40px', backgroundColor: '#FAFAF8' }}>
       {/* Title */}
-      <div style={{ maxWidth: 1900, margin: '0 auto', padding: '0 2em', marginBottom: 28 }}>
+      <div style={{ maxWidth: 1900, margin: '0 auto', padding: '0 40px', marginBottom: 28 }}>
         <h2 style={{ fontFamily: 'var(--font-body)', fontSize: 24, fontWeight: 500, color: '#40361F' }}>
           Categorías principales
         </h2>
@@ -88,8 +88,8 @@ export default function Categories() {
           display: 'flex',
           gap: 24,
           overflowX: 'auto',
-          paddingLeft: '2em',
-          paddingRight: '2em',
+          paddingLeft: 40,
+          paddingRight: 40,
           paddingTop: 8,
           paddingBottom: 20,
         }}
@@ -123,7 +123,7 @@ export default function Categories() {
       </div>
 
       {/* Draggable scroll bar */}
-      <div style={{ padding: '0 2em' }}>
+      <div style={{ padding: '0 40px' }}>
         <div
           ref={trackRef}
           style={{ height: 10, backgroundColor: '#F2EDE7', borderRadius: 30, cursor: 'pointer', position: 'relative' }}

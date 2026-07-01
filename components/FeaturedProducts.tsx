@@ -85,7 +85,7 @@ function ProductCard({ product }: { product: Product }) {
       onMouseLeave={() => setHovered(false)}
     >
       {/* Wrapper: relative + overflow visible so dog can poke above */}
-      <div style={{ position: 'relative', aspectRatio: '3/4', marginBottom: 12 }}>
+      <div style={{ position: 'relative', aspectRatio: '5/6', marginBottom: 12 }}>
         {/* Image clip — separate div so overflow:hidden doesn't cut the dog */}
         <div style={{
           position: 'absolute', inset: 0,
